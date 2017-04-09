@@ -142,9 +142,12 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
         }
 
 
+        $response = $this->json($res, $res["success"] ? 200 : 400);
 
 
-        return $this->json($res, $res["success"] ? 200 : 400);
+        $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+
+        return $response;
 
 
 
@@ -163,7 +166,11 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
         $siteObject = $siteObjectRepository->retrieveObjectByString($this->site, $object);
 
         if(!$siteObject){
-            return $this->json($res, 404);
+
+            $response =  $this->json($res, 404);
+            $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+
+            return $response;
         }
 
 
@@ -172,7 +179,11 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
         $reactions = $reactionsRepository->getReactions($siteObject);
 
         if(empty($reactions)){
-            return $this->json($res, 404);
+
+            $response =  $this->json($res, 404);
+            $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+
+            return $response;
         }
 
 
@@ -188,7 +199,10 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         }
 
-       return $this->json($res);
+        $response =  $this->json($res, 404);
+        $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+
+        return $response;
 
 
 
