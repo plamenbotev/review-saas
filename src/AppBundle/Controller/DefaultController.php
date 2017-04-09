@@ -88,7 +88,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
                 if($react){
 
-                    throw new Exception("User already reacted forthat object.");
+                    throw new Exception("User already reacted for that object.");
 
                 }
 
@@ -142,10 +142,14 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
         }
 
 
-        $response = $this->json($res, $res["success"] ? 200 : 400);
-
+        $response = $this->json($res);
 
         $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+        $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
+        $response->headers->set("Cache-Control", "no-cache");
+        $response->headers->set('Access-Control-Allow-Methods', ["PUT", "GET", "POST", "DELETE", "OPTIONS"]);
+
+
 
         return $response;
 
@@ -169,6 +173,10 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
             $response =  $this->json($res, 404);
             $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+            $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
+            $response->headers->set("Cache-Control", "no-cache");
+            $response->headers->set('Access-Control-Allow-Methods', ["PUT", "GET", "POST", "DELETE", "OPTIONS"]);
+
 
             return $response;
         }
@@ -182,6 +190,10 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
             $response =  $this->json($res, 404);
             $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+            $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
+            $response->headers->set("Cache-Control", "no-cache");
+            $response->headers->set('Access-Control-Allow-Methods', ["PUT", "GET", "POST", "DELETE", "OPTIONS"]);
+
 
             return $response;
         }
@@ -201,6 +213,10 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         $response =  $this->json($res, 404);
         $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
+        $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
+        $response->headers->set("Cache-Control", "no-cache");
+        $response->headers->set('Access-Control-Allow-Methods', ["PUT", "GET", "POST", "DELETE", "OPTIONS"]);
+
 
         return $response;
 
