@@ -12,6 +12,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="site_object",
@@ -35,6 +37,8 @@ class SiteObject
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Url()
      * @ORM\Column(type="text")
      */
     private $url;
@@ -45,6 +49,7 @@ class SiteObject
     private $hash;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Site", cascade={"persist","remove"})
      * @ORM\JoinColumn(name="site", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -73,6 +78,38 @@ class SiteObject
         $this->site = $site;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param mixed $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
     /**

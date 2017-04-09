@@ -11,6 +11,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -37,6 +38,8 @@ class Site
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Url()
      * @var $domain string
      */
     private $domain;
@@ -44,6 +47,7 @@ class Site
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @var $password string
      */
     private $password;

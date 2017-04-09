@@ -11,12 +11,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
- * @ORM\Table(name="user", indexes={
- *     @Index(name="email", columns={"email"} )
- *
- *     })
+ * @ORM\Table(name="user",
+ *     indexes={
+ *          @Index(name="email", columns={"email"} )},
+ *     uniqueConstraints={
+ *          @UniqueConstraint(name="mail", columns={"email"})} *
+ * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User
@@ -30,6 +34,7 @@ class User
     private $id;
 
     /**
+     * @Assert\Email()
      * @ORM\Column(type="string", length=255)
      * @var string
      */

@@ -2,6 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\SiteObject;
+use AppBundle\Entity\User;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\Expr\Join;
 /**
  * UserReactionRepository
  *
@@ -10,4 +14,63 @@ namespace AppBundle\Repository;
  */
 class UserReactionRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getReactions(SiteObject $object){
+
+
+        $qb = $this->createQueryBuilder("r");
+
+        $qb->select("r,so,u");
+
+
+        $qb->where( $qb->expr()->eq('r.object', '?1'));
+        $qb->innerJoin("r.object", "so");
+        $qb->innerJoin("r.user", "u");
+        $qb->setParameter(1, $object->getId());
+        $qb->addOrderBy("r.id", "DESC");
+
+        try {
+
+            return $qb->getQuery()->getResult();
+
+        }catch (NoResultException $e){
+            return null;
+        }
+
+
+
+
+    }
+
+    public function getReaction(SiteObject $object, User $user){
+
+
+        $qb = $this->createQueryBuilder("r");
+
+        $qb->select("r");
+
+        $qb->where( $qb->expr()->eq('r.object', '?1'));
+        $qb->andWhere( $qb->expr()->eq('r.user', '?2'));
+
+        $qb->setParameter(1, $object->getId());
+        $qb->setParameter(2, $user->getId());
+
+
+
+        try {
+
+            return $qb->getQuery()->getSingleResult();
+
+        }catch (NoResultException $e){
+
+            return null;
+
+        }
+
+
+
+
+    }
+
+
 }

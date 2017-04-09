@@ -1,6 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Site;
+use AppBundle\Entity\SiteObject;
+use Doctrine\ORM\NoResultException;
 
 /**
  * SiteRepository
@@ -10,4 +13,34 @@ namespace AppBundle\Repository;
  */
 class SiteRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * Retrieve site entity from token.
+     * @param $token string
+     * @return Site|null
+     */
+    public function retrieveSiteByToken($token){
+
+        $qb = $this->createQueryBuilder("s");
+
+        $qb->select("s");
+
+
+        $qb->where( $qb->expr()->eq('s.token', '?1'));
+        $qb->setParameter(1, $token);
+
+        try {
+            return $qb->getQuery()->getSingleResult();
+        }catch (NoResultException $e){
+            return null;
+        }
+
+
+
+    }
+
+
+
+
+
 }

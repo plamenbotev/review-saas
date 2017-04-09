@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
+    <div class="messages">
+        {% for flashMessage in messages %}
+
+            <div>{{ flashMessage }}</div>
+
+        {% endfor %}
+    </div>
     <div id="wrapper">
         <div id="container">
 

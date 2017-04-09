@@ -12,6 +12,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Doctrine\ORM\Mapping\Index;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="user_reaction", indexes={
@@ -35,7 +37,7 @@ class UserReaction
     private $id;
 
     /**
-
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="SiteObject")
      * @ORM\JoinColumn(name="object", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -43,18 +45,21 @@ class UserReaction
 
 
     /**
-
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(min="1", max="5")
      * @ORM\Column(type="integer")
      */
     private $stars;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     private $comment;
