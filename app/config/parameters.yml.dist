@@ -17,3 +17,4 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+    salt: "askjufhskjfh4w00w83r90dlkjfsku84slksv9804w!@$%sdfvs"
