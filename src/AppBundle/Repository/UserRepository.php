@@ -20,6 +20,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      */
     public function retrieveUserByMail($mail){
 
+        if(empty($mail)){
+            return null;
+        }
+
         $qb = $this->createQueryBuilder("u");
 
         $qb->select("u");

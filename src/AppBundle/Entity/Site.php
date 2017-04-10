@@ -11,17 +11,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="site", indexes={
  *     @Index(name="domain", columns={"domain"}),
- *
- *     @Index(name="password", columns={"password"}),
  *     @Index(name="token", columns={"token"}),
  *     @Index(name="created", columns={"created"})
- * })
+ * },
+ *      uniqueConstraints={@UniqueConstraint(name="site_domain", columns={"token"})}
+ *     )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SiteRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -39,18 +40,12 @@ class Site
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Assert\Url()
      * @var $domain string
      */
     private $domain;
 
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @var $password string
-     */
-    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -81,7 +76,7 @@ class Site
      */
     public function onPrePersist()
     {
-        $this->token = sha1($this->getDomain().":".$this->getPassword().uniqid(mt_rand(), true));
+        $this->token = md5($this->getDomain());
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
     }
@@ -126,23 +121,9 @@ class Site
     public function setDomain($domain)
     {
         $this->domain = $domain;
+        $this->setToken(md5($domain));
     }
 
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
 
     /**
      * @return string

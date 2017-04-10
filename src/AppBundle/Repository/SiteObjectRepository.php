@@ -15,6 +15,10 @@ class SiteObjectRepository extends \Doctrine\ORM\EntityRepository
 
     public function retrieveObjectByString(Site $site, $object){
 
+        if(empty($object)){
+            return null;
+        }
+
         $hash = md5(urldecode(trim($object)));
 
         $qb = $this->createQueryBuilder("so");

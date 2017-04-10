@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12" id="reactions-errors-container">
+
+            </div>
+
+            <div class="col-xs-12">
+                <form method="post" id="react-form" action="http://progresto.dev/app_dev.php/add-reaction/807e5aa72809df8b41a195354e99dd4ba1e64d2a">
+                    <div class="react-box">
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="enter your e-mail here" id="email" name="email" />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="stars" name="stars">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5" selected>5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="enter your comment here" class="form-control" id="comment" name="comment"></textarea>
+                        </div>
+
+
+                        <input class="btn btn-success btn-lg pull-right" type="submit" value="react" />
+
+                    </div>
+                </form>
+            </div>
+
+
+            <h1>Users reactions</h1>
+            <div id="reactions-container" class="col-xs-12">
+
+                <script id="comment-template" type="text/template">
+                    <div class="comment-box clearfix">
+
+                        <div class="col-xs-12">
+                            <div class="comment-heading">
+                                <div class="col-xs-8 text-left">
+                                    #email#
+                                </div>
+
+                                <div class="col-xs-4 text-right">
+
+                                    #stars# of 5
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 comment-container">
+                                #comment#
+                            </div>
+                        </div>
+                    </div>
+                </script>
+
+                <div class="boxes">
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script data-reactor-api="1" data-reactor-token="{{ token }}" data-reactor-endpoint="http://progresto.dev/app_dev.php" src="/reactor.js"></script>
+    <script src="/app.js"></script>
+{% endblock %}
+
