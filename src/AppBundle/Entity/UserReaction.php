@@ -38,6 +38,7 @@ class UserReaction
 
     /**
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="SiteObject")
      * @ORM\JoinColumn(name="object", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -46,6 +47,7 @@ class UserReaction
 
     /**
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -53,6 +55,7 @@ class UserReaction
 
     /**
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Assert\Range(min="1", max="5")
      * @ORM\Column(type="integer")
      */
@@ -60,6 +63,7 @@ class UserReaction
 
     /**
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @ORM\Column(type="text")
      */
     private $comment;

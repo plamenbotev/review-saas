@@ -39,6 +39,7 @@ class Site
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Assert\Url()
      * @var $domain string
      */

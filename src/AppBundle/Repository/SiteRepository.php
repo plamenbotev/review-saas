@@ -21,6 +21,10 @@ class SiteRepository extends \Doctrine\ORM\EntityRepository
      */
     public function retrieveSiteByToken($token){
 
+        if(empty($token)){
+            return null;
+        }
+
         $qb = $this->createQueryBuilder("s");
 
         $qb->select("s");

@@ -55,4 +55,30 @@ class ManageSiteController extends Controller
 
     }
 
+    /**
+     * @Route("/page1", name="page-one")
+     */
+    public function pageOneAction(Request $request)
+    {
+
+        return $this->render(
+            'default/page1.html.twig',
+            array()
+        );
+
+    }
+
+    /**
+     * @Route("/page2", name="page-two")
+     */
+    public function pageTwoAction(Request $request)
+    {
+
+        return $this->render(
+            'default/page1.html.twig',
+            array()
+        );
+
+    }
+
 }

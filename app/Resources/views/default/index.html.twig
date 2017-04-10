@@ -10,16 +10,23 @@
         {% endfor %}
     </div>
     <div id="wrapper">
-        <div id="container">
+        <div id="container" class="container">
 
-            {{ form_start(form) }}
-            {{ form_row(form.domain) }}
+            <div class="row">
+                <div class="col-xs-12">
+                    {{ form_start(form) }}
+                    {{ form_row(form.domain) }}
 
-            {{ form_row(form.password.first) }}
-            {{ form_row(form.password.second) }}
+                    {{ form_row(form.password.first) }}
+                    {{ form_row(form.password.second) }}
 
-            <button type="submit">Register!</button>
-            {{ form_end(form) }}
+                    <button type="submit">Register!</button>
+                    {{ form_end(form) }}
+                </div>
+
+
+            </div>
+
 
         </div>
     </div>

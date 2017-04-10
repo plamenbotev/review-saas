@@ -12,6 +12,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Site;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -65,4 +66,6 @@ class TokenListener
 
         }
     }
+
+
 }

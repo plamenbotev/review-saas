@@ -35,6 +35,8 @@ class User
 
     /**
      * @Assert\Email()
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      * @var string
      */

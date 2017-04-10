@@ -57,10 +57,10 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
 
 
-                $email = isset($data['email']) ? $data['email'] : null;
-                $url = isset($data['url']) ? $data['url'] : null;
-                $stars = isset($data['stars']) ? $data['stars'] : null;
-                $comment = isset($data['comment']) ? $data['comment'] : null;
+                $email = !empty($data['email']) ? $data['email'] : null;
+                $url = !empty($data['url']) ? $data['url'] : null;
+                $stars = !empty($data['stars']) ? $data['stars'] : null;
+                $comment = !empty($data['comment']) ? $data['comment'] : null;
 
                 $validator = $this->get("validator");
 
@@ -116,7 +116,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
 
                             $res["success"] = false;
-                            $res["errors"][$row->getPropertyPath()] = $row->getMessage();
+                            $res["errors"][] = $row->getPropertyPath()." : ".$row->getMessage();
 
                         }
 
@@ -138,7 +138,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         }catch (Exception $e){
             $res["success"]  = false;
-            $res["errors"] = $e->getMessage();
+            $res["errors"][] = $e->getMessage();
         }
 
 
@@ -158,10 +158,9 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
     }
 
     /**
-     * @Route("/get-reactions/{token}/{object}", name="get_reactions")
+     * @Route("/get-reactions/{token}/{object}", name="get_reactions", requirements={"object" = ".+"})
      */
     public function getReactions(Request $request, $token, $object){
-
 
         $res = array();
 
@@ -171,7 +170,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         if(!$siteObject){
 
-            $response =  $this->json($res, 404);
+            $response =  $this->json($res);
             $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
             $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
             $response->headers->set("Cache-Control", "no-cache");
@@ -188,7 +187,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         if(empty($reactions)){
 
-            $response =  $this->json($res, 404);
+            $response =  $this->json($res);
             $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
             $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
             $response->headers->set("Cache-Control", "no-cache");
@@ -211,7 +210,7 @@ class DefaultController extends Controller implements TokenAuthenticatedControll
 
         }
 
-        $response =  $this->json($res, 404);
+        $response =  $this->json($res);
         $response->headers->set('Access-Control-Allow-Origin', $this->site->getDomain());
         $response->headers->set('Access-Control-Allow-Headers', ["Origin", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin"]);
         $response->headers->set("Cache-Control", "no-cache");
