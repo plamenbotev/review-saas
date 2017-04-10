@@ -22,14 +22,7 @@ class SiteType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('domain', TextType::class)
-            ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
-            ))
-        ;
+        $builder->add('domain', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

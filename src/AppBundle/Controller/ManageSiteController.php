@@ -18,37 +18,37 @@ class ManageSiteController extends Controller
 
 
         $messages = array();
+        $errors   = array();
 
-        // 1) build the form
+
         $site = new Site();
         $form = $this->createForm(SiteType::class, $site);
 
-        // 2) handle the submit (will only happen on POST)
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = md5($site->getPassword().$this->getParameter("salt"));
-            $site->setPassword($password);
+            $repo = $this->getDoctrine()->getManager()->getRepository("AppBundle:Site");
+            $existing = $repo->retrieveSiteByToken($site->getToken());
 
-            // 4) save the User!
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($site);
-            $em->flush();
+            if(!$existing){
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($site);
+                $em->flush();
 
-
-            $messages[]  = "Your site was added succefully.";
-
+                $messages[]  = "Your site was added succefully.";
+            } else {
+                $errors[] = "That domain is already registered.";
+            }
 
         }
 
 
+
         return $this->render(
             'default/index.html.twig',
-            array('form' => $form->createView(), "messages" => $messages)
+            array('form' => $form->createView(), "messages" => $messages, "errors"=> $errors)
         );
 
 
@@ -62,8 +62,8 @@ class ManageSiteController extends Controller
     {
 
         return $this->render(
-            'default/page1.html.twig',
-            array()
+            'default/page.html.twig',
+            array("token"=> md5($request->getSchemeAndHttpHost()))
         );
 
     }
@@ -75,8 +75,8 @@ class ManageSiteController extends Controller
     {
 
         return $this->render(
-            'default/page1.html.twig',
-            array()
+            'default/page.html.twig',
+            array("token"=> md5($request->getSchemeAndHttpHost()))
         );
 
     }

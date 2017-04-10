@@ -5,9 +5,16 @@
     <div class="messages">
         {% for flashMessage in messages %}
 
-            <div>{{ flashMessage }}</div>
+            <div class="alert alert-success">{{ flashMessage }}</div>
 
         {% endfor %}
+
+        {% for error in errors %}
+
+            <div class="alert alert-danger">{{ error }}</div>
+
+        {% endfor %}
+
     </div>
     <div id="wrapper">
         <div id="container" class="container">
@@ -16,9 +23,6 @@
                 <div class="col-xs-12">
                     {{ form_start(form) }}
                     {{ form_row(form.domain) }}
-
-                    {{ form_row(form.password.first) }}
-                    {{ form_row(form.password.second) }}
 
                     <button type="submit">Register!</button>
                     {{ form_end(form) }}
