@@ -10,7 +10,7 @@ git clone https://github.com/plamenbotev/review-saas.git reactions
 
 3. create database reactions
 4. import the dump.sql there
-mysql -u user -p < dump.sql
+mysql -u user -p reactions < dump.sql
 5. Install dependencies
 composer install
 6. after the dependencies are installed, the script will ask for the initial configuration
