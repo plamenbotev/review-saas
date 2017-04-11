@@ -11,7 +11,7 @@
             </div>
 
             <div class="col-xs-12">
-                <form method="post" id="react-form" action="http://progresto.dev/app_dev.php/add-reaction/807e5aa72809df8b41a195354e99dd4ba1e64d2a">
+                <form method="post" id="react-form" action="{{ app.request.getSchemeAndHttpHost }}/app_dev.php/add-reaction/807e5aa72809df8b41a195354e99dd4ba1e64d2a">
                     <div class="react-box">
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="enter your e-mail here" id="email" name="email" />
@@ -86,7 +86,7 @@
 {% block stylesheets %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
-    <script data-reactor-api="1" data-reactor-token="{{ token }}" data-reactor-endpoint="http://progresto.dev/app_dev.php" src="/reactor.js"></script>
+    <script data-reactor-api="1" data-reactor-token="{{ token }}" data-reactor-endpoint="{{ app.request.getSchemeAndHttpHost }}/app_dev.php" src="/reactor.js"></script>
     <script src="/app.js"></script>
 {% endblock %}
 
