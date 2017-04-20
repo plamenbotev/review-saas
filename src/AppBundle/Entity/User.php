@@ -37,7 +37,7 @@ class User
      * @Assert\Email()
      * @Assert\NotNull()
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      * @var string
      */
     private $email;
