@@ -38,7 +38,7 @@ class Site
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=250)
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Url()
@@ -48,7 +48,7 @@ class Site
 
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=60)
      * @var $token string
      */
     private $token;
